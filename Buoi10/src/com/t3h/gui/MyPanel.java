@@ -7,10 +7,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.BitSet;
 
-public class MyPanel extends JPanel implements KeyListener {
+public class MyPanel extends JPanel implements KeyListener, Runnable {
 
     private GameManager manager = new GameManager();
+    private BitSet b = new BitSet(256);
 
     public MyPanel() {
         setBackground(Color.BLACK);
@@ -18,6 +20,9 @@ public class MyPanel extends JPanel implements KeyListener {
         // set key listener
         setFocusable(true);
         addKeyListener(this);
+
+        Thread t = new Thread(this);
+        t.start();
     }
 
     @Override
@@ -41,20 +46,33 @@ public class MyPanel extends JPanel implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT){
-            manager.playerMove(Tank.LEFT);
-        }else if (e.getKeyCode() == KeyEvent.VK_RIGHT){
-            manager.playerMove(Tank.RIGHT);
-        }else if (e.getKeyCode() == KeyEvent.VK_UP){
-            manager.playerMove(Tank.UP);
-        }else if (e.getKeyCode() == KeyEvent.VK_DOWN){
-            manager.playerMove(Tank.DOWN);
-        }
-        repaint();
+        b.set(e.getKeyCode());
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        b.clear(e.getKeyCode());
+    }
 
+    @Override
+    public void run() {
+        while (true) {
+            if (b.get(KeyEvent.VK_LEFT) == true) {
+                manager.playerMove(Tank.LEFT);
+            } else if (b.get(KeyEvent.VK_RIGHT) == true) {
+                manager.playerMove(Tank.RIGHT);
+            } else if (b.get(KeyEvent.VK_UP) == true) {
+                manager.playerMove(Tank.UP);
+            } else if (b.get(KeyEvent.VK_DOWN) == true) {
+                manager.playerMove(Tank.DOWN);
+            }
+            manager.AI();
+            repaint();
+            try {
+                Thread.sleep(5);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

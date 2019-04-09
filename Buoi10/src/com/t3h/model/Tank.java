@@ -13,7 +13,7 @@ public class Tank {
     protected int x;
     protected int y;
     protected int orient;
-    protected int speed = 5;
+    protected int speed = 1;
     protected Image[] images = new Image[4];
 
     public Tank(int x, int y) {
