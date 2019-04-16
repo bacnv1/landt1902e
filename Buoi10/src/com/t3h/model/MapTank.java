@@ -1,6 +1,7 @@
 package com.t3h.model;
 
 import image.ImageLoader;
+import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 
@@ -28,5 +29,23 @@ public class MapTank {
         } else {
             g2d.drawImage(img[bit - 1], x, y, null);
         }
+    }
+
+    public Rectangle getRect(){
+        int w = 38;
+        int h = 38;
+        if (bit != 3){
+            w = img[bit - 1].getWidth(null);
+            h = img[bit - 1].getHeight(null);
+        }
+        Rectangle rect = new Rectangle(
+                x, y, w, h
+
+        );
+        return rect;
+    }
+
+    public int getBit() {
+        return bit;
     }
 }

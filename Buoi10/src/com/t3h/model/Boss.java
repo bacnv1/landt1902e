@@ -2,6 +2,7 @@ package com.t3h.model;
 
 import image.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Boss extends Tank {
@@ -27,8 +28,8 @@ public class Boss extends Tank {
     }
 
     @Override
-    public void move() {
+    public void move(ArrayList<MapTank> arrMap) {
         createOrient();
-        super.move();
+        super.move(arrMap);
     }
 }

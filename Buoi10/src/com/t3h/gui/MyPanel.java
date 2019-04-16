@@ -66,7 +66,27 @@ public class MyPanel extends JPanel implements KeyListener, Runnable {
             } else if (b.get(KeyEvent.VK_DOWN) == true) {
                 manager.playerMove(Tank.DOWN);
             }
-            manager.AI();
+
+            if (b.get(KeyEvent.VK_SPACE) == true) {
+                manager.playerFire();
+            }
+            boolean check = manager.AI();
+            if (check == false) {
+                int result = JOptionPane.showConfirmDialog(
+                        null,
+                        "Do you want to replay",
+                        "Game over",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE
+                );
+                if (result == JOptionPane.YES_OPTION){
+                    manager.initGame();
+                    b = new BitSet();
+                }else{
+                    System.exit(0);
+                    return;
+                }
+            }
             repaint();
             try {
                 Thread.sleep(5);
