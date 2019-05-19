@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:text="xin chao, moi ban goi den 0984736212 hoac truy cap website www.google.com.vn"
+                android:textColor="#0000FF"
+                android:padding="16dp"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:autoLink="all"
+                android:shadowColor="#FF0000"
+                android:shadowRadius="3"
+                android:shadowDx="3"
+                android:shadowDy="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <EditText
+                android:drawableLeft="@android:drawable/ic_lock_lock"
+                android:drawablePadding="16dp"
+                android:inputType="number"
+                android:maxLength="50"
+                android:lines="1"
+                android:hint="User name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <Button
+                android:drawableTop="@android:drawable/ic_lock_lock"
+                android:text="Ok"
+                android:drawablePadding="-10dp"
+                android:textAllCaps="false"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <ImageView
+                android:scaleType="centerCrop"
+                android:src="@drawable/ronaldo"
+                android:layout_width="match_parent"
+                android:layout_height="1000dp" />
+
+            <ProgressBar
+                style="?android:attr/progressBarStyleHorizontal"
+                android:max="100"
+                android:progress="30"
+                android:secondaryProgress="50"
+                android:indeterminate="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <SeekBar
+                android:max="180000"
+                android:progress="120000"
+                android:thumb="@android:drawable/ic_lock_lock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
