@@ -10,6 +10,13 @@
 
     <com.t3h.buoi4.views.ClockView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:background="#00BCD4"
+        app:size="30sp"
+        app:color="#F44336"/>
 
+    <com.t3h.buoi4.views.MyBottom
+        android:text="Click"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content" />
 </LinearLayout>
