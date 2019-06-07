@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ユニット5</string>
+    <string name="login">ログイン</string>
+    <string name="user_name">ユーザー名</string>
+    <string name="password">パスワード</string>
+    <string name="ok">同意する</string>
+</resources>
