@@ -4,7 +4,11 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.t3h.buoi7"
+<<<<<<< HEAD
         minSdkVersion 15
+=======
+        minSdkVersion 21
+>>>>>>> 33558c52083cc1697f5f35a28738578d58c018b2
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
