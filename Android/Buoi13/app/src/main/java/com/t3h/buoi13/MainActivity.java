@@ -5,11 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.t3h.buoi13.databinding.ActivityMainBinding;
+import com.t3h.buoi13.download.DownloadActivity;
 
 import java.io.File;
 
@@ -90,5 +94,23 @@ public class MainActivity extends AppCompatActivity implements FileAdapter.ItemF
             File f = new File(currentFolder);
             readFile(f.getParent());
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.menu_download:
+                Intent intent = new Intent(this,
+                        DownloadActivity.class);
+                startActivity(intent);
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }
