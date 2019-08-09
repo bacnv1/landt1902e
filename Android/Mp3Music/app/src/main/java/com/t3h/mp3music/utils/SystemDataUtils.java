@@ -5,6 +5,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.provider.MediaStore;
 
+import com.t3h.mp3music.model.Album;
+import com.t3h.mp3music.model.Artist;
 import com.t3h.mp3music.model.BaseModel;
 import com.t3h.mp3music.model.FieldInfo;
 import com.t3h.mp3music.model.Song;
@@ -21,9 +23,25 @@ public class SystemDataUtils {
     }
 
     public ArrayList<Song> getSongs() {
-        Cursor cursor = resolver.query(MediaStore.Audio.Media.INTERNAL_CONTENT_URI,
+        Cursor cursor = resolver.query(
+                MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
                 null, null, null, null);
         return getData(cursor, Song.class);
+    }
+
+    public ArrayList<Artist> getArtists() {
+        Cursor cursor = resolver.query(
+                MediaStore.Audio.Artists.EXTERNAL_CONTENT_URI,
+                null, null, null, null);
+        return getData(cursor, Artist.class);
+    }
+
+    public ArrayList<Album> getAlbums() {
+        Cursor cursor = resolver.query(
+                MediaStore.Audio.Albums.EXTERNAL_CONTENT_URI,
+                null, null, null, null
+        );
+        return getData(cursor, Album.class);
     }
 
     private <T extends BaseModel> ArrayList<T> getData(

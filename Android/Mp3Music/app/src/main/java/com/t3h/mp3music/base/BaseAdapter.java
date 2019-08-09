@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.t3h.mp3music.BR;
 import com.t3h.mp3music.model.BaseModel;
 
 import java.util.ArrayList;
@@ -51,8 +52,8 @@ public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseA
     @Override
     public void onBindViewHolder(@NonNull BaseAdapter.BaseHolder baseHolder, int i) {
         T item = data.get(i);
-//        baseHolder.binding.setVariable(BR.item, item);
-//        baseHolder.binding.setVariable(BR.listener, listener);
+        baseHolder.binding.setVariable(BR.item, item);
+        baseHolder.binding.setVariable(BR.listener, listener);
         baseHolder.binding.executePendingBindings();
     }
 
