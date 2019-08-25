@@ -32,6 +32,10 @@ public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseA
         notifyDataSetChanged();
     }
 
+    public ArrayList<T> getData() {
+        return data;
+    }
+
     public void setListener(BaseItemListener listener) {
         this.listener = listener;
     }

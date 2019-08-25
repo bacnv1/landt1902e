@@ -1,8 +1,12 @@
 package com.t3h.mp3music.activities;
 
 import android.Manifest;
+import android.content.ComponentName;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.os.Build;
+import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
@@ -14,8 +18,11 @@ import com.t3h.mp3music.databinding.ActivityMainBinding;
 import com.t3h.mp3music.fragments.album.AlbumFragment;
 import com.t3h.mp3music.fragments.artist.ArtistFragment;
 import com.t3h.mp3music.fragments.song.SongFragment;
+import com.t3h.mp3music.service.MP3Service;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding> implements SearchView.OnQueryTextListener {
+
+    private MP3Service service;
 
     private final String[] PERMISSIONS = {
             Manifest.permission.READ_EXTERNAL_STORAGE
@@ -43,7 +50,23 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements S
                 fmSong, fmArtist, fmAlbum);
         binding.pager.setAdapter(pagerAdapter);
         binding.tab.setupWithViewPager(binding.pager);
+
+        Intent intent = new Intent(this, MP3Service.class);
+        bindService(intent, connection, BIND_AUTO_CREATE);
     }
+
+    private ServiceConnection connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            MP3Service.MP3Binder binder = (MP3Service.MP3Binder) service;
+            MainActivity.this.service = binder.getService();
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
+    };
 
     private boolean checkPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -85,5 +108,15 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements S
     @Override
     public boolean onQueryTextChange(String s) {
         return false;
+    }
+
+    public MP3Service getService() {
+        return service;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        unbindService(connection);
     }
 }

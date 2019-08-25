@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.t3h.mp3music.R;
+import com.t3h.mp3music.activities.MainActivity;
 import com.t3h.mp3music.base.BaseAdapter;
 import com.t3h.mp3music.base.BaseFragment;
 import com.t3h.mp3music.databinding.FragmentSongBinding;
@@ -37,6 +38,9 @@ public class SongFragment extends BaseFragment<FragmentSongBinding> implements S
 
     @Override
     public void onSongClick(Song song) {
-
+        int index = adapter.getData().indexOf(song);
+        MainActivity act = (MainActivity) getActivity();
+        act.getService().setData(adapter.getData());
+        act.getService().create(index);
     }
 }
