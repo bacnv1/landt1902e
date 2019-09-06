@@ -5,6 +5,7 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -35,6 +36,13 @@ public class MP3Service extends Service implements MediaPlayer.OnCompletionListe
     private ArrayList<Song> data;
     private int currentIndex = -1;
 
+    private MutableLiveData<Integer> time = new MutableLiveData<>();
+    private MutableLiveData<String> name = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isPlaying = new MutableLiveData<>();
+    private MutableLiveData<Boolean> isStarted = new MutableLiveData<>();
+
+    private boolean isRunning = false;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -44,6 +52,27 @@ public class MP3Service extends Service implements MediaPlayer.OnCompletionListe
         filter.addAction(ACTION_NEXT);
         filter.addAction(ACTION_EXIT);
         registerReceiver(receiver, filter);
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        if (isRunning == false) {
+            isRunning = true;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    while (isRunning){
+                        time.postValue(currentPosition());
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
+        }
+        return START_NOT_STICKY;
     }
 
     @Override
@@ -63,6 +92,9 @@ public class MP3Service extends Service implements MediaPlayer.OnCompletionListe
     }
 
     public void create(int index) {
+        name.postValue(data.get(index).getTitle());
+        isStarted.postValue(true);
+
         currentIndex = index;
         release();
         Uri uri = Uri.parse(data.get(index).getData());
@@ -121,6 +153,7 @@ public class MP3Service extends Service implements MediaPlayer.OnCompletionListe
 
     public void start() {
         if (player != null) {
+            isPlaying.postValue(true);
             player.start();
             pushNotification(data.get(currentIndex).getTitle());
         }
@@ -128,6 +161,7 @@ public class MP3Service extends Service implements MediaPlayer.OnCompletionListe
 
     public void pause() {
         if (player != null) {
+            isPlaying.postValue(false);
             player.pause();
             pushNotification(data.get(currentIndex).getTitle());
         }
@@ -204,6 +238,8 @@ public class MP3Service extends Service implements MediaPlayer.OnCompletionListe
                     change(PREV);
                     break;
                 case ACTION_EXIT:
+                    isStarted.postValue(false);
+                    isRunning = false;
                     stopForeground(true);
                     stopSelf();
                     release();
@@ -211,4 +247,20 @@ public class MP3Service extends Service implements MediaPlayer.OnCompletionListe
             }
         }
     };
+
+    public MutableLiveData<Integer> getTime() {
+        return time;
+    }
+
+    public MutableLiveData<String> getName() {
+        return name;
+    }
+
+    public MutableLiveData<Boolean> getIsPlaying() {
+        return isPlaying;
+    }
+
+    public MutableLiveData<Boolean> getIsStarted() {
+        return isStarted;
+    }
 }

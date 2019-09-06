@@ -43,4 +43,9 @@ public class SongFragment extends BaseFragment<FragmentSongBinding> implements S
         act.getService().setData(adapter.getData());
         act.getService().create(index);
     }
+
+    @Override
+    public void executeSearch(String key) {
+        adapter.getFilter().filter(key);
+    }
 }

@@ -9,15 +9,18 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.t3h.mp3music.BR;
 import com.t3h.mp3music.model.BaseModel;
 
 import java.util.ArrayList;
 
-public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseAdapter.BaseHolder> {
+public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseAdapter.BaseHolder> implements Filterable {
 
     private ArrayList<T> data;
+    private ArrayList<T> dataAll;
     private LayoutInflater inflater;
     private int layoutId;
     private BaseItemListener listener;
@@ -29,6 +32,7 @@ public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseA
 
     public void setData(ArrayList<T> data) {
         this.data = data;
+        this.dataAll = data;
         notifyDataSetChanged();
     }
 
@@ -61,6 +65,11 @@ public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseA
         baseHolder.binding.executePendingBindings();
     }
 
+    @Override
+    public Filter getFilter() {
+        return new FilterAdapter();
+    }
+
     public class BaseHolder extends RecyclerView.ViewHolder {
         ViewDataBinding binding;
         public BaseHolder(@NonNull ViewDataBinding binding) {
@@ -70,4 +79,27 @@ public class BaseAdapter<T extends BaseModel> extends RecyclerView.Adapter<BaseA
     }
 
     public interface BaseItemListener{ }
+
+    public class FilterAdapter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence key) {
+            ArrayList<T> result = new ArrayList<>();
+            for (T t: dataAll) {
+                if (t.checkFilter(key.toString())){
+                    result.add(t);
+                }
+            }
+            FilterResults filter = new FilterResults();
+            filter.values = result;
+            filter.count = result.size();
+            return filter;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            data = (ArrayList<T>) results.values;
+            notifyDataSetChanged();
+        }
+    }
 }

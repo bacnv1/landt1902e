@@ -39,4 +39,9 @@ public class ArtistFragment extends BaseFragment<FragmentArtistBinding> implemen
     public void onArtistClick(Artist artist) {
 
     }
+
+    @Override
+    public void executeSearch(String key) {
+        adapter.getFilter().filter(key);
+    }
 }

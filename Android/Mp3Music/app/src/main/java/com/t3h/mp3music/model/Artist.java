@@ -21,4 +21,9 @@ public class Artist extends BaseModel{
     public int getNumberOfTrack() {
         return numberOfTrack;
     }
+
+    @Override
+    public boolean checkFilter(String key) {
+        return name.toLowerCase().contains(key.toLowerCase());
+    }
 }

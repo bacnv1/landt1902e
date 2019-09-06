@@ -27,4 +27,9 @@ public class Album extends BaseModel{
     public String getNumberOfSong() {
         return numberOfSong;
     }
+
+    @Override
+    public boolean checkFilter(String key) {
+        return name.toLowerCase().contains(key.toLowerCase());
+    }
 }

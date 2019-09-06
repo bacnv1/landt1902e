@@ -39,4 +39,9 @@ public class AlbumFragment extends BaseFragment<FragmentAlbumBinding> implements
     public void albumItemClick(Album album) {
 
     }
+
+    @Override
+    public void executeSearch(String key) {
+        adapter.getFilter().filter(key);
+    }
 }

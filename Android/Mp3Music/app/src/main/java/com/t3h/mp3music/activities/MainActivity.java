@@ -14,6 +14,7 @@ import android.view.Menu;
 import com.t3h.mp3music.R;
 import com.t3h.mp3music.adapter.MP3PagerAdapter;
 import com.t3h.mp3music.base.BaseActivity;
+import com.t3h.mp3music.base.BaseFragment;
 import com.t3h.mp3music.databinding.ActivityMainBinding;
 import com.t3h.mp3music.fragments.album.AlbumFragment;
 import com.t3h.mp3music.fragments.artist.ArtistFragment;
@@ -60,6 +61,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements S
         public void onServiceConnected(ComponentName name, IBinder service) {
             MP3Service.MP3Binder binder = (MP3Service.MP3Binder) service;
             MainActivity.this.service = binder.getService();
+            binding.playView.setService(MainActivity.this.service);
         }
 
         @Override
@@ -107,6 +109,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> implements S
 
     @Override
     public boolean onQueryTextChange(String s) {
+        BaseFragment fm = (BaseFragment)
+                pagerAdapter.getItem(binding.pager.getCurrentItem());
+        fm.executeSearch(s);
         return false;
     }
 

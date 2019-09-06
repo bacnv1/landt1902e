@@ -24,4 +24,6 @@ public abstract class BaseFragment<BD extends ViewDataBinding> extends Fragment 
     protected abstract int getLayoutId();
 
     public abstract String getTitle();
+
+    public abstract void executeSearch(String key);
 }

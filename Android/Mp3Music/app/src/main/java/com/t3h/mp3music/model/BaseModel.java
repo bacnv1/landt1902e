@@ -1,5 +1,5 @@
 package com.t3h.mp3music.model;
 
-public class BaseModel {
-
+public abstract class BaseModel {
+    public abstract boolean checkFilter(String key);
 }
