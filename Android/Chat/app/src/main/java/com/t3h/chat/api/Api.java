@@ -22,7 +22,8 @@ public interface Api {
     @POST("login.php")
     @FormUrlEncoded
     Call<User> login(@Field("user_name") String userName,
-                     @Field("password") String password);
+                     @Field("password") String password,
+                     @Field("token") String token);
 
     @POST("chat.php")
     @FormUrlEncoded

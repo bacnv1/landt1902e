@@ -4,7 +4,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.t3h.chat"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -33,4 +33,9 @@ dependencies {
     implementation 'com.squareup.retrofit2:retrofit:+'
     implementation 'com.squareup.retrofit2:converter-gson:+'
 
+    implementation 'com.google.firebase:firebase-messaging:20.0.0'
+
+
 }
+
+apply plugin: 'com.google.gms.google-services'

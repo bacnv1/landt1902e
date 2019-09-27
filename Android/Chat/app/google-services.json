@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "359392446025",
+    "firebase_url": "https://chat1902e-23598.firebaseio.com",
+    "project_id": "chat1902e-23598",
+    "storage_bucket": "chat1902e-23598.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:359392446025:android:711b9f6719de890ede2198",
+        "android_client_info": {
+          "package_name": "com.t3h.chat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "359392446025-bnkik11dcd48ib6r6h536toq9hu9qgqo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5vnDxnxu55prVmOTDrqIHi41tuy0weDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "359392446025-bnkik11dcd48ib6r6h536toq9hu9qgqo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

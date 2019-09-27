@@ -9,7 +9,7 @@ public class ApiBuilder {
     public static Api getApi() {
         if (api == null) {
             api = new Retrofit.Builder()
-                    .baseUrl("http://192.168.1.97/chat1902e/")
+                    .baseUrl("http://192.168.1.121/chat1902e/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(Api.class);
